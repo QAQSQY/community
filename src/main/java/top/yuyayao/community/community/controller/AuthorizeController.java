@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import top.yuyayao.community.community.dto.AccessTokenDTO;
 import top.yuyayao.community.community.dto.GithubUser;
+import top.yuyayao.community.community.mapper.UserMapper;
+import top.yuyayao.community.community.model.User;
 import top.yuyayao.community.community.provider.GithubProvider;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +25,8 @@ public class AuthorizeController {
     private String client_secret;
     @Value("${github_redirect_uri}")
     private String redirect_uri;
+    @Autowired
+    private UserMapper userMapper;
 
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
@@ -35,10 +39,17 @@ public class AuthorizeController {
         accessTokenDTO.setState(state);
         accessTokenDTO.setRedirect_uri(redirect_uri);
         String token = githubProvider.getAccessToken(accessTokenDTO);
-        GithubUser user = githubProvider.getUser(token);
-        if(user!=null){
+        GithubUser githubUser = githubProvider.getUser(token);
+        if(githubUser!=null){
             //登录成功，写入session
-            request.getSession().setAttribute("user",user);
+            User user = new User();
+            user.setName(githubUser.getLogin());
+            user.setAccountId(githubUser.getId().toString());
+            user.setToken(token);
+            user.setGmtCreate(System.currentTimeMillis());
+            user.setGmtModified(user.getGmtCreate());
+            userMapper.insert(user);
+            request.getSession().setAttribute("user",githubUser);
             return "redirect:/";
         }else{
             //登录失败，重新登录

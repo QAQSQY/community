@@ -56,7 +56,7 @@ public class AuthorizeController {
             user.setGmtModified(user.getGmtCreate());
             userMapper.insert(user);
             Cookie cookie = new Cookie("token",token);
-            cookie.setMaxAge(60);
+//            cookie.setMaxAge(60);
             response.addCookie(cookie);
 //            request.getSession().setAttribute("user",githubUser);
             return "redirect:/";

@@ -28,7 +28,7 @@ public class IndexController {
                     User user = userMapper.findByToken(token);
                     if (user != null) {
                         HttpSession session = request.getSession();
-                        session.setMaxInactiveInterval(60);
+//                        session.setMaxInactiveInterval(60);
                         session.setAttribute("user", user);
                     }
                     break;

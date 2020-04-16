@@ -16,6 +16,6 @@ public interface QuestionMapper {
             "gmt_modified," +
             "creator," +
             "tag"+") values(" +
-            "#{title},#{description},#{gmt_create},#{gmt_modified},#{creator},#{tag})")
+            "#{title},#{description},#{gmtCreate},#{gmtModified},#{creator},#{tag})")
     void create(Question question);
 }

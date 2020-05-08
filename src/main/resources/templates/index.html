@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <script type="application/javascript" src="js/jquery.js"></script>
     <script type="application/javascript" src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/community.css">
     <title>YUYAYAO Community</title>
 </head>
 <body>
@@ -44,5 +45,32 @@
         </div>
     </div>
 </nav>
+<div class="container-fluid main">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12" style="padding:0px; margin: 0px">
+            <h3 class="mar-lef"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"
+                                      style="font-size: 22px;"></span>&nbsp;发起</h3>
+            <hr class="underline-up"/>
+            <!--            <div class="underline"></div>-->
+            <div class="media media-border mar-lef underline" th:each="question:${questions}">
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="media-object img-thumbnail" src="/images/touxiang.jpg" alt="" style="width: 50px; height: 50px"
+                             th:src="${question.user.avatarUrl}">
+                    </a>
+                </div>
+                <div class="media-body" style="padding-top: 5px">
+                    <h4 class="media-heading" th:text="${question.title}">Spring Boot实战</h4>
+                    <span class="text-class">发表了文章&nbsp;&nbsp;•&nbsp;&nbsp;<span th:text="${question.description}"></span> 个评论&nbsp;•&nbsp;<span
+                            th:text="${question.commentCount}"></span> 次浏览&nbsp;&nbsp•&nbsp;&nbsp;<span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd')}"></span></span>
+                </div>
+            </div>
+            <!--            <hr/>-->
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 bor-lef">
+            <h3>热门话题</h3>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -1,11 +1,40 @@
 .main {
     margin: 30px;
     background-color: #efefef;
+    border-radius: 5px;
 }
+
 body {
     background-color: #ffffff;
 }
+
 .btn-publish {
     float: right;
     margin-bottom: 20px;
+}
+
+.media-border {
+    margin-bottom: 15px;
+}
+.underline {
+    padding-bottom: 15px;
+    border-bottom: 2px solid #9c9c9c;
+    width: 95%;
+}
+.underline-up {
+    border-bottom: 2px solid #ffffff;
+}
+
+
+.text-class {
+    font-size: 12px;
+    color: #999;
+}
+.mar-lef{
+    margin-left: 20px;
+}
+.bor-lef{
+    margin-left: 0px;
+    border-left: 2px solid #ffffff;
+    height: 400px;
 }

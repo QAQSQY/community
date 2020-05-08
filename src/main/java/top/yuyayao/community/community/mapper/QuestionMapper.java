@@ -2,8 +2,11 @@ package top.yuyayao.community.community.mapper;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 import top.yuyayao.community.community.model.Question;
+
+import java.util.List;
 
 @Repository
 @Mapper
@@ -18,4 +21,7 @@ public interface QuestionMapper {
             "tag"+") values(" +
             "#{title},#{description},#{gmtCreate},#{gmtModified},#{creator},#{tag})")
     void create(Question question);
+
+    @Select("select * from question")
+    List<Question> list();
 }

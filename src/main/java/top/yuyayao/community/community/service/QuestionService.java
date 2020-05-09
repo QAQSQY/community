@@ -27,9 +27,17 @@ public class QuestionService {
             User user = userMapper.findById(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question,questionDTO);
-            questionDTO.setUser(user);
+//            questionDTO.setUser(user);
             questionDTOS.add(questionDTO);
         }
         return questionDTOS;
+    }
+
+    public List<Question> findAll() {
+        return questionMapper.list();
+    }
+
+    public List<QuestionDTO> pageFind() {
+        return userMapper.pageFind();
     }
 }

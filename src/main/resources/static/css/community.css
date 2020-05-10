@@ -1,11 +1,11 @@
 .main {
     margin: 30px;
-    background-color: #efefef;
+    background-color: #ffffff;
     border-radius: 5px;
 }
 
 body {
-    background-color: #ffffff;
+    background-color: #efefef;
 }
 
 .btn-publish {
@@ -16,25 +16,43 @@ body {
 .media-border {
     margin-bottom: 15px;
 }
+
 .underline {
     padding-bottom: 15px;
-    border-bottom: 2px solid #9c9c9c;
+    border-bottom: 2px solid #efefef;
     width: 95%;
 }
+
 .underline-up {
-    border-bottom: 2px solid #ffffff;
+    border-bottom: 2px solid #efefef;
 }
 
 
 .text-class {
     font-size: 12px;
-    color: #999;
+    color: #efefef;
 }
-.mar-lef{
+
+.mar-lef {
     margin-left: 20px;
 }
-.bor-lef{
+
+.bor-lef {
     margin-left: 0px;
-    border-left: 2px solid #ffffff;
+    border-left: 2px solid #efefef;
     height: 750px;
+}
+
+.course{
+    color: #155faa;
+}
+
+.course-2{
+    color: #999999;
+}
+.list-group-back-color{
+    background-color: #3f9bea;
+}
+.question-padding-lef{
+    padding-left: 30px;
 }

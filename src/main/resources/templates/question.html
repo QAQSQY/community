@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <script type="application/javascript" src="/js/jquery.js"></script>
+    <script type="application/javascript" src="/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/community.css">
+    <title th:text="${question.title}">个人中心</title>
+</head>
+<body>
+<div th:insert="nav::nav"></div>
+<div class="container-fluid main">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12" style="padding:0px; margin: 0px">
+            <h3 class="mar-lef">
+                <span class="" aria-hidden="true" style="font-size: 22px;"></span><span
+                    th:text="'&nbsp;'+${question.title}"></span>
+            </h3>
+            <div class="media-body question-padding-lef">
+                <span class="text-class course-2">
+                    作者：<span><a th:text="${question.name}"></a></span>
+                    &nbsp;|&nbsp;发布于：<span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd')}"></span>
+                    &nbsp;|&nbsp;阅读数：<span th:text="${question.commentCount}"></span>
+                </span>
+            </div>
+            <hr/>
+            <div class="col-lg-12 col-md-12 col-sm-12 question-padding-lef">
+                <span th:text="${question.description}"></span>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <hr/>
+                <span class="glyphicon glyphicon-pencil" th:if="${session.user!=null&& session.user.id==question.creator}"><a style="color: #3f9bea" th:href="@{'/publish/'+${question.id}}">编辑</a></span>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 bor-lef">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h4>发起人</h4>
+                <div class="media">
+                    <div class="media-left media-middle">
+                        <a href="#">
+                            <img class="media-object" th:src="${question.avatarUrl}" style="width: 60px;height: 60px">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h3 class="media-middle"><a th:text="${question.name}"></a></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h4>相关问题</h4>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

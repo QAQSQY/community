@@ -23,10 +23,10 @@ public class QuestionService {
     public List<QuestionDTO> list() {
         List<Question> questionList = questionMapper.list();
         List<QuestionDTO> questionDTOS = new ArrayList<>();
-        for(Question question: questionList){
+        for (Question question : questionList) {
             User user = userMapper.findById(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
-            BeanUtils.copyProperties(question,questionDTO);
+            BeanUtils.copyProperties(question, questionDTO);
 //            questionDTO.setUser(user);
             questionDTOS.add(questionDTO);
         }
@@ -38,6 +38,26 @@ public class QuestionService {
     }
 
     public List<QuestionDTO> pageFind() {
-        return userMapper.pageFind();
+        return questionMapper.pageFind();
+    }
+
+    public List<QuestionDTO> pageFindByUserId() {
+        return questionMapper.pageFindByUserId();
+    }
+
+    public QuestionDTO getById(Integer id) {
+        QuestionDTO question = questionMapper.getById(id);
+        System.out.println(question);
+        QuestionDTO questionDTO = new QuestionDTO();
+        BeanUtils.copyProperties(question,questionDTO);
+        return questionDTO;
+    }
+
+    public void createOrupdate(Question question) {
+        if(question.getId()==null){
+            questionMapper.create(question);
+        }else{
+            questionMapper.update(question);
+        }
     }
 }

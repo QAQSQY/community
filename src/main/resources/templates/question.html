@@ -22,7 +22,7 @@
             </h3>
             <div class="media-body question-padding-lef">
                 <span class="text-class course-2">
-                    作者：<span><a th:text="${question.name}"></a></span>
+                    作者：<span><a th:text="${question.user.name}"></a></span>
                     &nbsp;|&nbsp;发布于：<span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd')}"></span>
                     &nbsp;|&nbsp;阅读数：<span th:text="${question.commentCount}"></span>
                 </span>
@@ -42,11 +42,11 @@
                 <div class="media">
                     <div class="media-left media-middle">
                         <a href="#">
-                            <img class="media-object" th:src="${question.avatarUrl}" style="width: 60px;height: 60px">
+                            <img class="media-object" th:src="${question.user.avatarUrl}" style="width: 60px;height: 60px">
                         </a>
                     </div>
                     <div class="media-body">
-                        <h3 class="media-middle"><a th:text="${question.name}"></a></h3>
+                        <h3 class="media-middle"><a th:text="${question.user.name}"></a></h3>
                     </div>
                 </div>
             </div>

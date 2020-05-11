@@ -17,6 +17,7 @@ public class QuestionDTO {
     private Integer viewCount;
     private Integer commentCount;
     private Integer likeCount;
-    private String avatarUrl;//头像的url
-    private String name;//用户名称
+//    private String avatarUrl;//头像的url
+//    private String name;//用户名称
+    protected User user;
 }

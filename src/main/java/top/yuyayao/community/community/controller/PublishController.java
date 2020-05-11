@@ -67,7 +67,6 @@ public class PublishController {
         question.setCreator(user.getId());
         question.setGmtCreate(System.currentTimeMillis());
         question.setGmtModified(question.getGmtCreate());
-//        questionMapper.create(question);
         question.setId(id);
         questionService.createOrupdate(question);
         return "redirect:/";
@@ -75,8 +74,6 @@ public class PublishController {
 
     @GetMapping("/publish/{id}")
     public String edit(@PathVariable(name = "id") Integer id, Model model){
-//        return "redirect:/question/"+id;
-//        Question question = questionMapper.getOneByI(id);
         Question question = questionMapper.selectByPrimaryKey(id);
         model.addAttribute("title",question.getTitle());
         model.addAttribute("description",question.getDescription());

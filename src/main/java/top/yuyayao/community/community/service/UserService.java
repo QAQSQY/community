@@ -14,7 +14,6 @@ public class UserService {
     private UserMapper userMapper;
 
     public void createOrupdate(User user) {
-//        User dbUser = userMapper.findByaccountId(user.getAccountId());
         UserExample userExample = new UserExample();
         userExample.createCriteria().andAccountIdEqualTo(user.getAccountId());
         List<User> users = userMapper.selectByExample(userExample);
@@ -31,7 +30,6 @@ public class UserService {
             updateUser.setToken(user.getToken());
             userExample.createCriteria().andIdEqualTo(dbUser.getId());
             userMapper.updateByExampleSelective(updateUser,userExample);
-//            userMapper.updateUser(dbUser);
         }
     }
 }

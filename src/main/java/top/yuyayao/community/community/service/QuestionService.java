@@ -24,39 +24,33 @@ public class QuestionService {
     private UserMapper userMapper;
 
     public List<QuestionDTO> list() {
-//        List<Question> questionList = questionMapper.list();
         List<Question> questionList = questionMapper.selectByExample(new QuestionExample());
         List<QuestionDTO> questionDTOS = new ArrayList<>();
         for (Question question : questionList) {
-//            User user = userMapper.findById(question.getCreator());
             User user = userMapper.selectByPrimaryKey(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question, questionDTO);
-//            questionDTO.setUser(user);
+
             questionDTOS.add(questionDTO);
         }
         return questionDTOS;
     }
 
     public List<Question> findAll() {
-//        QuestionExample questionExample = new QuestionExample();
         return questionMapper.selectByExample(new QuestionExample());
     }
 
     public List<QuestionDTO> pageFind() {
-        List<QuestionDTO> questionDTOList = new ArrayList<>();
-        List<Question> questionList = questionMapper.selectByExample(new QuestionExample());
-        for (Question question : questionList){
-            QuestionDTO questionDTO = new QuestionDTO();
-            BeanUtils.copyProperties(question,questionDTO);
-            User user = userMapper.selectByPrimaryKey(question.getCreator());
-            questionDTO.setUser(user);
-            questionDTOList.add(questionDTO);
-        }
+        List<QuestionDTO> questionDTOList = findall();;
         return questionDTOList;
     }
 
     public List<QuestionDTO> pageFindByUserId() {
+        List<QuestionDTO> questionDTOList = findall();;
+        return questionDTOList;
+    }
+
+    private List<QuestionDTO> findall() {
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         List<Question> questionList = questionMapper.selectByExample(new QuestionExample());
         for (Question question : questionList){
@@ -66,12 +60,10 @@ public class QuestionService {
             questionDTO.setUser(user);
             questionDTOList.add(questionDTO);
         }
-        System.out.println(questionDTOList);
         return questionDTOList;
     }
 
     public QuestionDTO getById(Integer id) {
-//        QuestionDTO question = questionMapper.getById(id);
         Question question = questionMapper.selectByPrimaryKey(id);
         User user = userMapper.selectByPrimaryKey(question.getCreator());
         QuestionDTO questionDTO = new QuestionDTO();
@@ -82,10 +74,8 @@ public class QuestionService {
 
     public void createOrupdate(Question question) {
         if(question.getId()==null){
-//            questionMapper.create(question);
             questionMapper.insertSelective(question);
         }else{
-//            questionMapper.update(question);
             questionMapper.updateByPrimaryKeySelective(question);
         }
     }

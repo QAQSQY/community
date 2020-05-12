@@ -30,10 +30,12 @@
                 </div>
                 <div class="media-body" style="padding-top: 5px">
                     <h4 class="media-heading course" th:text="${question.title}">Spring Boot实战</h4>
-                    <span class="text-class course-2">发表了文章&nbsp;&nbsp;•&nbsp;&nbsp;<span
-                            th:text="${question.description}"></span> 个评论&nbsp;•&nbsp;<span
-                            th:text="${question.commentCount}"></span> 次浏览&nbsp;&nbsp•&nbsp;&nbsp;<span
-                            th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd')}"></span></span>
+                    <span class="text-class course-2">
+                        <span th:text="${question.user.name}"></span>&nbsp;发表了文章&nbsp;&nbsp;•&nbsp;
+                        <span th:text="${question.commentCount}"></span>个评论&nbsp;•
+                        <span th:text="${question.viewCount}"></span>次浏览&nbsp;•&nbsp;
+                        <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd')}"></span>
+                    </span>
                 </div>
             </div>
             <nav aria-label="Page navigation" style="float: right; margin-right: 30px;">

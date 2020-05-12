@@ -13,6 +13,7 @@ import top.yuyayao.community.community.model.User;
 import top.yuyayao.community.community.service.QuestionService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 
 @Controller
 public class ProFileController {
@@ -31,7 +32,7 @@ public class ProFileController {
             model.addAttribute("sectionName", "我的提问");
             pageNum = (pageNum - 1) * pageSize;
             PageHelper.offsetPage(pageNum, pageSize);
-            PageInfo<QuestionDTO> questionPageInfo = new PageInfo<QuestionDTO>(questionService.pageFindByUserId());
+            PageInfo<QuestionDTO> questionPageInfo = new PageInfo<QuestionDTO>(questionService.pageFindByUserId(user.getId()));
             if (questionPageInfo.getPageNum() == 0) {
                 questionPageInfo.setPageNum(1);
             }
@@ -41,7 +42,7 @@ public class ProFileController {
             model.addAttribute("sectionName", "最新回复");
             pageNum = (pageNum - 1) * pageSize;
             PageHelper.offsetPage(pageNum, pageSize);
-            PageInfo<QuestionDTO> questionPageInfo = new PageInfo<QuestionDTO>(questionService.pageFind());
+            PageInfo<QuestionDTO> questionPageInfo = new PageInfo<QuestionDTO>(questionService.pageFindByUserId(user.getId()));
             if (questionPageInfo.getPageNum() == 0) {
                 questionPageInfo.setPageNum(1);
             }

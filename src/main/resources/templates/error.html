@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <script type="application/javascript" src="/js/jquery.js"></script>
+    <script type="application/javascript" src="/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/community.css">
+    <title>错误页面</title>
+</head>
+<body>
+<div class="jumbotron">
+    <h1>出错啦！！！</h1>
+    <p th:text="${message}">服务器太忙了，请稍后再来试试</p>
+    <p><a class="btn btn-primary btn-lg" href="/static" role="button">回到首页</a></p>
+</div>
+</body>
+</html>

@@ -2,15 +2,16 @@ package top.yuyayao.community.community.service;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import top.yuyayao.community.community.dto.QuestionDTO;
+import top.yuyayao.community.community.exception.CustomizeException;
+import top.yuyayao.community.community.exception.CustomizedErrorCode;
 import top.yuyayao.community.community.mapper.QuestionMapper;
+import top.yuyayao.community.community.mapper.QuestionMapperCustom;
 import top.yuyayao.community.community.mapper.UserMapper;
 import top.yuyayao.community.community.model.Question;
 import top.yuyayao.community.community.model.QuestionExample;
 import top.yuyayao.community.community.model.User;
-import top.yuyayao.community.community.model.UserExample;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,8 @@ public class QuestionService {
     private QuestionMapper questionMapper;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private QuestionMapperCustom questionMapperCustom;
 
     public List<QuestionDTO> list() {
         List<Question> questionList = questionMapper.selectByExample(new QuestionExample());
@@ -41,30 +44,21 @@ public class QuestionService {
     }
 
     public List<QuestionDTO> pageFind() {
-        List<QuestionDTO> questionDTOList = findall();;
-        return questionDTOList;
+        List<QuestionDTO> questionDTOS = questionMapperCustom.pageFind();
+        return questionDTOS;
     }
 
-    public List<QuestionDTO> pageFindByUserId() {
-        List<QuestionDTO> questionDTOList = findall();;
-        return questionDTOList;
+    public List<QuestionDTO> pageFindByUserId(Integer id) {
+        List<QuestionDTO> questionDTOS = questionMapperCustom.pageFindByUserId(id);
+        return questionDTOS;
     }
 
-    private List<QuestionDTO> findall() {
-        List<QuestionDTO> questionDTOList = new ArrayList<>();
-        List<Question> questionList = questionMapper.selectByExample(new QuestionExample());
-        for (Question question : questionList){
-            QuestionDTO questionDTO = new QuestionDTO();
-            BeanUtils.copyProperties(question,questionDTO);
-            User user = userMapper.selectByPrimaryKey(question.getCreator());
-            questionDTO.setUser(user);
-            questionDTOList.add(questionDTO);
-        }
-        return questionDTOList;
-    }
 
     public QuestionDTO getById(Integer id) {
         Question question = questionMapper.selectByPrimaryKey(id);
+        if(question==null){
+            throw new CustomizeException(CustomizedErrorCode.QUESTION_NOT_FOUND);
+        }
         User user = userMapper.selectByPrimaryKey(question.getCreator());
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question,questionDTO);
@@ -76,7 +70,10 @@ public class QuestionService {
         if(question.getId()==null){
             questionMapper.insertSelective(question);
         }else{
-            questionMapper.updateByPrimaryKeySelective(question);
+            int update = questionMapper.updateByPrimaryKeySelective(question);
+            if (update != 1) {
+                throw new CustomizeException(CustomizedErrorCode.QUESTION_NOT_FOUND);
+            }
         }
     }
 }

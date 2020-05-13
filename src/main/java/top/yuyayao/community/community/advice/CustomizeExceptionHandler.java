@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 import top.yuyayao.community.community.exception.CustomizeException;
+import top.yuyayao.community.community.exception.CustomizedErrorCode;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,7 +19,7 @@ public class CustomizeExceptionHandler {
         if (throwable instanceof CustomizeException) {
             model.addAttribute("message",throwable.getMessage());
         } else {
-            model.addAttribute("message","服务器错误");
+            model.addAttribute("message", CustomizedErrorCode.REQUEST_ERROR.getMessage());
         }
         return new ModelAndView("error");
     }

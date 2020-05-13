@@ -36,4 +36,7 @@
 <!--        select q.*,u.* from question q,user u where q.creator=u.id and q.id=#{id}-->
 <!--    </select>-->
 
+    <update id="incView" parameterType="integer">
+        update question set view_count=view_count+1 where id=#{id}
+    </update>
 </mapper>

@@ -31,9 +31,10 @@
                         <a th:href="@{'question/'+${question.id}}" th:text="${question.title}">Spring Boot实战</a>
                     </h4>
                     <span class="text-class course-2">
-                        <span th:text="${question.user.name}"></span>发表了文章&nbsp;&nbsp;•&nbsp;&nbsp;
+                        <span th:text="${question.user.name}"></span> 发表了文章&nbsp;&nbsp;•&nbsp;&nbsp;
                         <span th:text="${question.commentCount}"></span>个评论&nbsp;•&nbsp;
-                        <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd')}"></span>次浏览&nbsp;&nbsp&nbsp;&nbsp;
+                        <span th:text="${question.viewCount}"></span>次浏览&nbsp;
+                        <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd')}"></span>
                     </span>
                 </div>
             </div>

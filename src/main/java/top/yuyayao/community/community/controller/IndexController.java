@@ -53,10 +53,8 @@ public class IndexController {
             session.setAttribute("user", users.get(0));
         }
         pageNum = (pageNum - 1) * pageSize;
-        System.out.println("ppp:"+pageNum);
         PageHelper.offsetPage(pageNum, pageSize);
         PageInfo<QuestionDTO> questionPageInfo = new PageInfo<QuestionDTO>(questionService.pageFind());
-        System.out.println(questionPageInfo.getList().size());
         if (questionPageInfo.getPageNum() == 0) {
             questionPageInfo.setPageNum(1);
         }

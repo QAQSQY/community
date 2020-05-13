@@ -56,24 +56,33 @@ public class QuestionService {
 
     public QuestionDTO getById(Integer id) {
         Question question = questionMapper.selectByPrimaryKey(id);
-        if(question==null){
+        if (question == null) {
             throw new CustomizeException(CustomizedErrorCode.QUESTION_NOT_FOUND);
         }
         User user = userMapper.selectByPrimaryKey(question.getCreator());
         QuestionDTO questionDTO = new QuestionDTO();
-        BeanUtils.copyProperties(question,questionDTO);
+        BeanUtils.copyProperties(question, questionDTO);
         questionDTO.setUser(user);
         return questionDTO;
     }
 
     public void createOrupdate(Question question) {
-        if(question.getId()==null){
+        if (question.getId() == null) {
             questionMapper.insertSelective(question);
-        }else{
+        } else {
             int update = questionMapper.updateByPrimaryKeySelective(question);
             if (update != 1) {
                 throw new CustomizeException(CustomizedErrorCode.QUESTION_NOT_FOUND);
             }
         }
+    }
+
+    /**
+     * 累加阅读数
+     *
+     * @param id
+     */
+    public void incView(Integer id) {
+        questionMapperCustom.incView(id);
     }
 }

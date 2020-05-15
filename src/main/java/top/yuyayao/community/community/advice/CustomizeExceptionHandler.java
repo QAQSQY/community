@@ -4,7 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import top.yuyayao.community.community.dto.ResultDTO;
 import top.yuyayao.community.community.exception.CustomizeException;
 import top.yuyayao.community.community.exception.CustomizedErrorCode;
 
@@ -13,23 +15,25 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class CustomizeExceptionHandler {
 
-    @ExceptionHandler(Exception.class)
-    ModelAndView handle(HttpServletRequest request, Throwable throwable, Model model){
-//        HttpStatus statuc = getStatus(request);
-        if (throwable instanceof CustomizeException) {
-            model.addAttribute("message",throwable.getMessage());
+    @ExceptionHandler(CustomizeException.class)
+    @ResponseBody
+    Object handle(HttpServletRequest request, Throwable throwable, Model model) {
+        String contentType = request.getContentType();
+        if ("application/json".equals(contentType)) {
+            //返回json
+            if (throwable instanceof CustomizeException) {
+                return ResultDTO.errorOf((CustomizeException) throwable);
+            } else {
+                return ResultDTO.errorOf(CustomizedErrorCode.SERVER_ERROR);
+            }
         } else {
-            model.addAttribute("message", CustomizedErrorCode.REQUEST_ERROR.getMessage());
+            //页面跳转
+            if (throwable instanceof CustomizeException) {
+                model.addAttribute("message", throwable.getMessage());
+            } else {
+                model.addAttribute("message", CustomizedErrorCode.QUESTION_NOT_FOUND.getMessage());
+            }
+            return new ModelAndView("error");
         }
-        return new ModelAndView("error");
     }
-
-    private HttpStatus getStatus(HttpServletRequest request) {
-        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
-        if (statusCode == null) {
-            return HttpStatus.INTERNAL_SERVER_ERROR;
-        }
-        return HttpStatus.valueOf(statusCode);
-    }
-
 }

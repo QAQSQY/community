@@ -50,6 +50,7 @@ public class IndexController {
         List<User> users = userMapper.selectByExample(userExample);
         if (users.size() != 0) {
             HttpSession session = request.getSession();
+            System.out.println(users.get(0));
             session.setAttribute("user", users.get(0));
         }
         pageNum = (pageNum - 1) * pageSize;

@@ -36,7 +36,11 @@
 <!--        select q.*,u.* from question q,user u where q.creator=u.id and q.id=#{id}-->
 <!--    </select>-->
 
-    <update id="incView" parameterType="integer">
+    <update id="incView" parameterType="long">
         update question set view_count=view_count+1 where id=#{id}
+    </update>
+
+    <update id="incComment" parameterType="long">
+        update question set comment_count=comment_count+#{commentCount} where id=#{id}
     </update>
 </mapper>

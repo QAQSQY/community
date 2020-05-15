@@ -1,4 +1,4 @@
-package top.yuyayao.community.community.config;
+package top.yuyayao.community.community.Interceptor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,6 @@ import top.yuyayao.community.community.model.UserExample;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service

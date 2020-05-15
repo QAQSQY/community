@@ -25,7 +25,7 @@ public class CustomizeErrorController implements ErrorController {
     public ModelAndView errorHtml(HttpServletRequest request, Model model){
         HttpStatus status = getStatus(request);
         if (status.is4xxClientError()) {
-            model.addAttribute("message", CustomizedErrorCode.REQUEST_ERROR.getMessage());
+            model.addAttribute("message", CustomizedErrorCode.QUESTION_NOT_FOUND.getMessage());
         }
         if(status.is5xxServerError()){
             model.addAttribute("message", CustomizedErrorCode.SERVER_ERROR.getMessage());

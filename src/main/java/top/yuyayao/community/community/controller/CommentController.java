@@ -7,9 +7,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import top.yuyayao.community.community.dto.CommentDTO;
 import top.yuyayao.community.community.dto.ResultDTO;
-import top.yuyayao.community.community.mapper.CommentMapper;
+import top.yuyayao.community.community.exception.CustomizedErrorCode;
 import top.yuyayao.community.community.model.Comment;
 import top.yuyayao.community.community.model.User;
+import top.yuyayao.community.community.service.CommentService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 public class CommentController {
 
     @Autowired
-    private CommentMapper commentMapper;
+    private CommentService commentService;
 
     @PostMapping("/comment")
     @ResponseBody
@@ -26,16 +27,16 @@ public class CommentController {
         Comment comment = new Comment();
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
-            return ResultDTO.errorOf(2002,"用户为登录，请登录");
+            return ResultDTO.errorOf(CustomizedErrorCode.NO_LOGIN);
         }
         comment.setParentId(commentDTO.getParentId());
         comment.setContent(commentDTO.getContent());
         comment.setType(commentDTO.getType());
         comment.setGmtModified(System.currentTimeMillis());
         comment.setGmtCreate(System.currentTimeMillis());
-        comment.setCommentator(1);
+        comment.setCommentator(1L);
         comment.setLikeCount(0L);
-        commentMapper.insert(comment);
-        return ResultDTO.successOf(200,"评论成功");
+        commentService.insert(comment);
+        return ResultDTO.successOf();
     }
 }

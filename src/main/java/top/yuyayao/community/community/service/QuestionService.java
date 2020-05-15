@@ -48,13 +48,13 @@ public class QuestionService {
         return questionDTOS;
     }
 
-    public List<QuestionDTO> pageFindByUserId(Integer id) {
+    public List<QuestionDTO> pageFindByUserId(Long id) {
         List<QuestionDTO> questionDTOS = questionMapperCustom.pageFindByUserId(id);
         return questionDTOS;
     }
 
 
-    public QuestionDTO getById(Integer id) {
+    public QuestionDTO getById(Long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
         if (question == null) {
             throw new CustomizeException(CustomizedErrorCode.QUESTION_NOT_FOUND);
@@ -82,7 +82,7 @@ public class QuestionService {
      *
      * @param id
      */
-    public void incView(Integer id) {
+    public void incView(Long id) {
         questionMapperCustom.incView(id);
     }
 }
